@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+					  "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+		<title>ajax_front_end_example</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript">
+			function submitTextMessage()
+			{
+				var phoneNumber = document.getElementById("phoneNumber").value;
+				var textMessage		= document.getElementById("message").value;
+				var formData 	= {};
+				formData["number"] 		= phoneNumber;
+				formData["message"]		= textMessage;
+				
+				$("#result").html("Loading....");
+				$.ajax({
+					url: "http://textbelt.com/text",
+					data: formData,
+					type: 'POST',
+					success: function(data)
+							{
+								$("#result").html(data.success + ":" + data.message);
+							}
+				});
+			}
+		</script>
+   </head>
+   <BODY>
+		<div class="content drop-shadow lifted">
+			<label>Phone Number:</label>
+			<input type="text" id="phoneNumber" />
+			
+			<label>Message:</label>
+			<input type="text" id="message" />
+			
+			<div style="clear:both"></div>
+			
+			<input type="button" onclick="submitTextMessage()" value="Send message" />
+			
+			<label style="padding-top: 25px">Result:</label>
+			<div id="result"></div>
+		</div>
+   </BODY>
+</HTML>
